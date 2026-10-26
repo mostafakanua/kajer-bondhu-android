@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>কাজের বন্ধু — Admin Panel</title>
+<style>
+*{box-sizing:border-box}html,body{width:100%;overflow-x:hidden;margin:0;width:100%;min-height:100%;font-family:Arial,'Noto Sans Bengali',sans-serif;background:#eef5ff;color:#17233d}button,input,textarea,select{font:inherit}button{border:0;cursor:pointer;touch-action:manipulation}.hidden{display:none!important}
+:root{--blue:#0877e8;--blue2:#0758c9;--green:#16b968;--pink:#ed2b98;--orange:#ff9d16;--red:#ef3349;--purple:#7138dc}
+.app{width:100%;min-height:100vh;margin:0;background:#f5f8fd;box-shadow:none;position:relative;overflow-x:hidden}
+@media (max-width:600px){html,body{width:100%;overflow-x:hidden;width:100%;overflow-x:hidden}.app{width:100%;max-width:none;margin:0;box-shadow:none}.bottomInner{width:100%;max-width:none;margin:0}.loginBox{max-width:none}}
+/* LOGIN — full phone app screen */
+.login{min-height:100svh;width:100vw;background:#f4f7fb;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.loginBox{width:100%;min-height:0;background:#fff;border-radius:28px;padding:28px 18px 22px;text-align:center;box-shadow:0 10px 32px rgba(15,43,77,.12);overflow:visible;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+@media(min-width:700px){.loginBox{max-width:520px;padding:34px 28px 26px}}
+.loginBox:before{content:'';position:absolute;top:-100px;left:-80px;width:280px;height:280px;border-radius:50%;background:#0877e815;pointer-events:none}.loginBox:after{content:'';position:absolute;right:-110px;bottom:-100px;width:300px;height:300px;border-radius:50%;background:#0877e812;pointer-events:none}
+.bigLogo{width:92px;height:92px;margin:0 auto 12px;border-radius:30px;background:linear-gradient(135deg,#0877e8,#0758c9);display:grid;place-items:center;font-size:58px;box-shadow:0 14px 30px #0877e844;position:relative;z-index:1}
+.loginBox h1{margin:0;color:#0758c9;font-size:32px;line-height:1.15;position:relative;z-index:1}.adminText{font-size:17px;color:#ef3349;font-weight:800;margin:6px 0 8px;position:relative;z-index:1}.loginBox p{margin:0 0 28px;color:#556174;font-size:13px;line-height:1.5;position:relative;z-index:1}
+.loginForm{width:100%;width:100%;text-align:left;position:relative;z-index:1}.loginForm .field{margin:13px 0}.loginForm .input{height:54px;border-radius:14px;font-size:15px}.loginBtn{height:55px;font-size:16px;border-radius:14px;margin-top:14px}.passwordWrap{position:relative}.passwordWrap .input{padding-right:54px}.passToggle{position:absolute;right:8px;top:8px;width:38px;height:38px;border-radius:10px;background:#f1f5f9;color:#42526a;font-size:17px}.field{text-align:left;margin:10px 0}.field label{display:block;font-size:12px;font-weight:800;margin:0 0 6px;color:#25314a}.input,.field textarea,.field select{width:100%;border:1px solid #d7dfeb;background:#fff;border-radius:11px;padding:12px 13px;outline:none;color:#17233d}.input:focus,.field textarea:focus,.field select:focus{border-color:#0877e8;box-shadow:0 0 0 3px #0877e811}.loginBtn,.primaryBtn{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#0877e8,#0758c9);color:#fff;font-weight:800;margin-top:8px;box-shadow:0 8px 18px #0877e833}.loginBtn:active,.primaryBtn:active{transform:scale(.99)}
+@media(min-width:700px){.loginBox{padding-left:40px;padding-right:40px}}
+/* HEADER */
+.top{height:64px;background:#fff;color:#17233d;display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid #e6ebf2;position:sticky;top:0;z-index:50}.brand{font-weight:900;font-size:20px;line-height:1.05;flex:1;color:#0758c9}.topIcon{background:#f1f5f9;color:#17233d;font-size:23px;padding:7px;width:42px;height:42px;border-radius:12px}
+.page{display:none;padding:13px 13px 88px}.page.active{display:block}.welcome{background:#fff;border-radius:17px;padding:13px;display:flex;gap:11px;align-items:center;box-shadow:0 3px 15px #0000000a}.avatar{width:49px;height:49px;border-radius:50%;background:#e8f3ff;display:grid;place-items:center;font-size:26px;flex:none}.welcome b{font-size:16px}.welcome small{color:#718096}.dateChip{margin-left:auto;background:#f0f6ff;border-radius:10px;padding:8px;font-size:10px;text-align:center;color:#53647c}
+/* DASHBOARD */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}.stat{color:#fff;border-radius:14px;padding:10px;min-height:76px;box-shadow:0 5px 14px #0000000d}.stat .ico{float:right;font-size:24px}.stat b{display:block;font-size:22px;margin-top:5px}.stat small{font-size:11px;opacity:.95}.sblue{background:linear-gradient(135deg,#0794f2,#0870dc)}.spink{background:linear-gradient(135deg,#f02ba0,#d91c8c)}.sgreen{background:linear-gradient(135deg,#15c77a,#0aa35f)}.sorange{background:linear-gradient(135deg,#ffad21,#f78a00)}
+.sectionTitle{font-size:17px;font-weight:900;margin:16px 2px 9px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.quick button{background:#fff;border-radius:13px;padding:11px 4px;font-size:10px;font-weight:800;box-shadow:0 3px 12px #0000000a}.quick i{display:block;font-style:normal;font-size:23px;margin-bottom:5px}.quick .q1 i{color:#08a9a5}.quick .q2 i{color:#08a9c6}.quick .q3 i{color:#ed2b98}.quick .q4 i{color:#0877e8}.recent{background:#fff;border-radius:15px;overflow:hidden}.recentRow{display:flex;align-items:center;gap:9px;padding:11px;border-bottom:1px solid #eef1f5}.recentRow:last-child{border-bottom:0}.grow{flex:1;min-width:0}.grow b{font-size:13px}.grow small{display:block;color:#667085;margin-top:3px;font-size:10px}.viewBtn{background:#0877e8;color:#fff;border-radius:8px;padding:7px 10px;font-size:10px;font-weight:800}.pill{display:inline-block;padding:5px 8px;border-radius:8px;font-size:10px;font-weight:800}.pending{background:#fff0bd;color:#8a6300}.accepted{background:#ddfaea;color:#08753e}.assigned{background:#eadfff;color:#6031a8}.ongoing{background:#dfebff;color:#0758c9}.completed{background:#ddf7ea;color:#08753e}.cancelled{background:#ffe0e5;color:#b4001c}
+/* LISTS */
+.titleRow{display:flex;align-items:center;gap:8px;margin-bottom:10px}.title{font-size:20px;font-weight:900;flex:1}.backBtn{background:#fff;border-radius:10px;padding:8px 11px}.search{margin-bottom:9px}.filters{display:flex;gap:6px;overflow:auto;margin-bottom:10px;padding-bottom:2px}.filters button{white-space:nowrap;background:#fff;border-radius:9px;padding:8px 11px;font-size:10px}.filters button.active{background:#0877e8;color:#fff}.card{background:#fff;border-radius:14px;padding:12px;margin-bottom:9px;box-shadow:0 3px 14px #0000000a}.serviceRow,.bookingRow,.workerRow,.customerRow{display:flex;gap:10px;align-items:center}.serviceImg{width:61px;height:53px;object-fit:cover;border-radius:10px;background:#edf3fa}.rowActions{display:flex;gap:5px;margin-top:8px}.miniBtn{padding:7px 9px;border-radius:7px;color:#fff;font-size:10px;font-weight:800}.blueBtn{background:#0877e8}.redBtn{background:#ef3349}.greenBtn{background:#16b968}.purpleBtn{background:#7138dc}.orangeBtn{background:#ff9410}.statusBadge{margin-left:auto}.empty{text-align:center;color:#7b8799;background:#fff;border-radius:14px;padding:35px 10px}
+/* SERVICE FORM */
+.upload{border:1.5px dashed #9cc6ef;border-radius:12px;padding:18px;text-align:center;color:#0877e8;background:#f6fbff;margin-bottom:11px}.upload span{display:block;font-size:28px}.save{margin-top:8px}
+/* BOOKING DETAIL */
+.detailTop{display:flex;align-items:center;gap:10px}.call{width:39px;height:39px;border-radius:50%;background:#16b968;color:#fff;display:grid;place-items:center;text-decoration:none;font-size:18px}.infoLine{display:flex;gap:8px;margin:9px 0;font-size:12px}.infoLine b{width:24px}.workerBox{background:#fff8d7;border-radius:12px;padding:12px;margin-top:10px}.actionGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}.actionGrid button{padding:12px;border-radius:9px;color:#fff;font-weight:800;font-size:11px}.fullBtn{grid-column:1/-1}.timeline{background:#fff;border-radius:14px;padding:14px;margin-top:10px}.step{display:flex;gap:10px;position:relative;padding-bottom:17px}.step:last-child{padding-bottom:0}.dot{width:18px;height:18px;border-radius:50%;background:#d1d9e6;flex:none;margin-top:1px}.step.done .dot{background:#16b968}.step.current .dot{background:#0877e8;box-shadow:0 0 0 4px #0877e822}.stepText b{font-size:12px}.stepText small{display:block;color:#7a8798;font-size:10px;margin-top:2px}
+/* BANNERS */
+.bannerImg{width:100%;height:120px;object-fit:cover;border-radius:11px;background:#edf3fa}.bannerCard{overflow:hidden;padding:0}.bannerBody{padding:10px}
+/* BOTTOM */
+.bottom{position:fixed;left:0;right:0;bottom:0;height:68px;background:#fff;border-top:1px solid #e2e7ee;z-index:70}.bottomInner{margin:auto;height:100%;display:grid;grid-template-columns:repeat(4,1fr)}.bottom button{background:#fff;color:#718096;font-size:10px}.bottom button.active{color:#0877e8;font-weight:900}.bottom span{display:block;font-size:21px;margin-bottom:2px}
+/* DRAWER */
+.overlay{display:none;position:fixed;inset:0;background:#0006;z-index:80}.overlay.show{display:block}.drawer{position:fixed;right:-310px;top:0;width:min(300px,88vw);height:100%;background:#fff;z-index:90;transition:.25s;box-shadow:-8px 0 30px #0003;padding:16px;overflow:auto}.drawer.open{right:0}.drawerHead{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid #eee}.drawerAvatar{width:45px;height:45px;border-radius:50%;background:#e8f3ff;display:grid;place-items:center;font-size:24px}.drawer button{display:flex;align-items:center;gap:12px;width:100%;background:#fff;padding:13px 8px;border-radius:9px;text-align:left;font-weight:700;color:#25314a}.drawer button:hover{background:#f3f7fc}.logout{color:#ef3349!important;margin-top:8px}
+@media(max-width:360px){.stats{grid-template-columns:repeat(2,1fr)}.quick{grid-template-columns:repeat(2,1fr)}}
+/* APP ONLY: full phone width, no fixed frame */
+
+/* BANNER DESIGNER */
+.bannerDesigner{display:grid;grid-template-columns:1fr 1.12fr;gap:10px}
+.bannerPanel,.bannerPreviewPanel{background:#fff;border-radius:16px;padding:11px;box-shadow:0 3px 14px #0000000a}
+.bannerPanel h3,.bannerPreviewPanel h3{margin:0 0 9px;font-size:15px}
+.designerStep{border:1px solid #e5eaf1;border-radius:12px;padding:9px;margin-bottom:8px;background:#fbfdff}
+.designerStep .stepHead{font-size:11px;font-weight:900;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.stepNo{width:22px;height:22px;border-radius:50%;background:#0877e8;color:#fff;display:grid;place-items:center;font-size:10px}
+.fileBtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:1px dashed #8bb8e8;border-radius:9px;padding:10px;background:#f5faff;color:#0758c9;font-weight:800;font-size:11px}
+.fileName{font-size:9px;color:#718096;margin-top:5px;word-break:break-all}
+.colorRow{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.colorInput{width:100%;height:39px;border:1px solid #d7dfeb;border-radius:9px;padding:3px;background:#fff}
+.twoCol{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.rangeRow{display:grid;grid-template-columns:1fr 62px;gap:7px;align-items:center}
+.rangeRow input[type=range]{width:100%}
+.rangeVal{border:1px solid #d7dfeb;border-radius:8px;padding:7px;text-align:center;font-size:10px;background:#fff}
+.previewFrame{position:relative;width:100%;aspect-ratio:16/7.3;border-radius:14px;overflow:hidden;background:#075c3d;box-shadow:0 6px 18px #0002}
+.previewBg{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat}
+.previewOverlay{position:absolute;inset:0}
+.previewContent{position:absolute;inset:0;padding:5%;display:flex;align-items:center;justify-content:flex-start}
+.previewText{position:relative;width:56%;z-index:3}
+.previewTitle{font-size:clamp(16px,3vw,30px);line-height:1.12;font-weight:900;color:#fff;margin:0;text-shadow:0 2px 5px #0006}
+.previewSub{font-size:clamp(8px,1.35vw,14px);line-height:1.3;color:#fff;margin:6px 0}
+.previewButton{display:inline-block;padding:7px 12px;border-radius:8px;color:#fff;font-size:clamp(8px,1.25vw,13px);font-weight:900}
+.previewWorker{position:absolute;z-index:4;right:3%;bottom:0;width:34%;height:88%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 7px 7px #0003)}
+.previewArrows{position:absolute;z-index:6;top:50%;left:0;right:0;display:flex;justify-content:space-between;transform:translateY(-50%);pointer-events:none}
+.previewArrows span{width:28px;height:28px;border-radius:50%;background:#fff;color:#18304b;display:grid;place-items:center;margin:0 7px;font-weight:900;box-shadow:0 3px 10px #0003}
+.previewDots{position:absolute;z-index:6;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.previewDots i{width:6px;height:6px;border-radius:50%;background:#fff8}.previewDots i:first-child{background:#fff}
+.previewHint{font-size:9px;color:#667085;background:#ecfff3;border:1px solid #bde8ca;border-radius:10px;padding:8px;margin-top:8px}
+.bannerListDesigner{margin-top:10px}
+.existingBanner{display:grid;grid-template-columns:82px 1fr auto;gap:8px;align-items:center;background:#fff;border-radius:12px;padding:7px;margin-bottom:7px;box-shadow:0 2px 9px #0000000a}
+.existingBanner img{width:82px;height:48px;object-fit:cover;border-radius:8px;background:#edf3fa}
+.existingBanner b{font-size:11px;display:block}
+.existingBanner small{font-size:8px;color:#718096;display:block;margin-top:3px}
+.bannerActions{display:flex;flex-direction:column;gap:4px}
+.bannerActions button{padding:6px 7px;border-radius:7px;color:#fff;font-size:9px;font-weight:800}
+.bannerUp{background:#0877e8}.bannerDown{background:#0758c9}.bannerEdit{background:#16b968}.bannerDel{background:#ef3349}
+.liveBtn{width:100%;padding:11px;border-radius:10px;background:#0877e8;color:#fff;font-weight:900;margin-top:7px}
+.saveDesigner{width:100%;padding:12px;border-radius:10px;background:#16b968;color:#fff;font-weight:900;margin-top:7px}
+@media(max-width:700px){
+  .bannerDesigner{grid-template-columns:1fr}
+  .bannerPreviewPanel{order:-1}
+  .previewFrame{aspect-ratio:16/8.8}
+}
+
+</style>
+</head>
+<body>
+
+<div id="login" class="login">
+ <div class="loginBox">
+  <div class="bigLogo">🏠</div>
+  <h1>কাজের বন্ধু</h1>
+  <div class="adminText">Admin Panel</div>
+  <p>Manage your services, bookings and customers</p>
+  <div class="loginForm">
+   <div class="field"><label>Admin Email</label><input id="adminEmail" class="input" type="email" value="mostafakanua1@gmail.com" autocomplete="username"></div>
+   <div class="field"><label>Password</label><div class="passwordWrap"><input id="password" class="input" type="password" autocomplete="current-password"><button class="passToggle" type="button" onclick="togglePassword()">👁</button></div></div>
+   <button class="loginBtn" onclick="login()">Login</button>
+   <div style="margin-top:16px;font-size:11px;color:#8a96a8">কাজের বন্ধু • Admin Panel</div>
+  </div>
+ </div>
+</div>
+
+<div id="app" class="app hidden">
+ <header class="top"><div class="brand">কাজের বন্ধু</div><button class="topIcon" onclick="openDrawer()">☰</button></header>
+
+ <section id="dashboard" class="page active">
+  <div class="stats">
+   <div class="stat sblue"><span class="ico">⚙</span>Services<b id="serviceCount">0</b><small>Total Services</small></div>
+   <div class="stat spink"><span class="ico">▣</span>Bookings<b id="bookingCount">0</b><small>Total Bookings</small></div>
+   <div class="stat sgreen"><span class="ico">▶</span>Ongoing<b id="ongoingCount">0</b><small>Active</small></div>
+   <div class="stat sorange"><span class="ico">✓</span>Completed<b id="completeCount">0</b><small>Done</small></div>
+  <div class="stat" style="background:linear-gradient(135deg,#6b4ce6,#4b2bb8)"><span class="ico">✓</span>Accepted<b id="acceptedCount">0</b><small>Accepted</small></div><div class="stat" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><span class="ico">♟</span>Assigned<b id="assignedCount">0</b><small>Assigned</small></div><div class="stat" style="background:linear-gradient(135deg,#ef4444,#c81e1e)"><span class="ico">×</span>Cancelled<b id="cancelledCount">0</b><small>Cancelled</small></div><div class="stat" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)"><span class="ico">👥</span>Customers<b id="customerCount">0</b><small>Total Customers</small></div><div class="stat" style="background:linear-gradient(135deg,#14b8a6,#0f766e)"><span class="ico">♟</span>Workers<b id="workerCount">0</b><small>Total Workers</small></div><div class="stat" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><span class="ico">▥</span>Reports<b id="reportCount">0</b><small>Bookings</small></div></div>
+  <div class="sectionTitle">Quick Actions</div>
+  <div class="quick"><button class="q1" onclick="show('serviceForm');newService()"><i>＋</i>Add Service</button><button class="q2" onclick="show('banners')"><i>▧</i>Add Banner</button><button class="q3" onclick="show('bookings')"><i>▣</i>View Bookings</button><button class="q4" onclick="show('workers')"><i>♟</i>Manage Workers</button></div>
+  <div class="sectionTitle">Recent Bookings <button class="viewBtn" style="float:right" onclick="show('bookings')">View All</button></div>
+  <div id="recentBookings" class="recent"></div>
+ </section>
+
+ <section id="services" class="page"><div class="titleRow"><div class="title">Manage Services</div><button class="primaryBtn" style="width:auto;padding:9px 12px;margin:0" onclick="newService()">＋ Add New</button></div><input id="serviceSearch" class="input search" placeholder="⌕ Search service..." oninput="renderServices()"><div id="serviceList"></div></section>
+
+ <section id="serviceForm" class="page"><div class="titleRow"><button class="backBtn" onclick="show('services')">←</button><div class="title">Add / Edit Service</div></div><div class="upload">▧<span>Upload Service Image</span></div><input type="hidden" id="serviceId"><div class="field"><label>Service Name (বাংলা)</label><input id="serviceNameBn" class="input" placeholder="যেমন: ঘর পরিষ্কার"></div><div class="field"><label>Service Name (English)</label><input id="serviceName" class="input" placeholder="House Cleaning"></div><div class="field"><label>Price (₹)</label><input id="servicePrice" class="input" inputmode="decimal" placeholder="500"></div><div class="field"><label>Category</label><select id="serviceCategory" class="input"><option>Home Service</option><option>Cleaning</option><option>Electrical</option><option>Plumbing</option><option>AC Service</option><option>Pest Control</option></select></div><div class="field"><label>Image URL</label><input id="serviceImage" class="input" placeholder="https://..."></div><div class="field"><label>Description</label><textarea id="serviceDescription" rows="4" placeholder="Service description..."></textarea></div><div class="field"><label>Status</label><select id="serviceActive" class="input"><option value="true">Active</option><option value="false">Inactive</option></select></div><button class="primaryBtn save" onclick="saveService()">▣ Save Service</button></section>
+
+ <section id="banners" class="page">
+ <div class="titleRow"><div class="title">Homepage Image Slider</div></div>
+ <div class="card" style="margin-bottom:12px">
+  <p style="margin:0 0 8px">সর্বোচ্চ ৪টি ছবি যোগ করুন। প্রস্তাবিত ছবি 1200 × 500 px।</p>
+  <div class="field"><label>Slider Interval (সেকেন্ড)</label><input id="sliderInterval" class="input" type="number" inputmode="numeric" min="1" max="3600" step="1" value="3" placeholder="যেমন 5, 12, 30"><small style="display:block;color:#748198;margin-top:5px">১ থেকে ৩৬০০ সেকেন্ডের মধ্যে নিজের পছন্দমতো সময় লিখুন।</small></div>
+  <div id="sliderCards"></div>
+  <button class="primaryBtn" id="addSlideBtn" onclick="addSlideSlot()">＋ Add Banner Image</button>
+  <button class="primaryBtn save" onclick="saveHomeSlider()">💾 Save Homepage Slider</button>
+  <div id="sliderMsg" role="status" style="margin-top:8px;font-size:13px"></div>
+ </div>
+</section>
+
+ <section id="bookings" class="page"><div class="title">Booking Manage</div><input id="bookingSearch" class="input search" placeholder="⌕ Search customer, mobile..." oninput="renderBookings()"><div class="filters"><button class="active" onclick="bookingFilter('All',this)">All</button><button onclick="bookingFilter('Pending',this)">Pending</button><button onclick="bookingFilter('Accept',this)">Accepted</button><button onclick="bookingFilter('Assigned',this)">Assigned</button><button onclick="bookingFilter('Ongoing',this)">Ongoing</button><button onclick="bookingFilter('Completed',this)">Completed</button><button onclick="bookingFilter('Cancelled',this)">Cancelled</button></div><div id="bookingList"></div></section>
+
+ <section id="bookingDetail" class="page"><div class="titleRow"><button class="backBtn" onclick="show('bookings')">←</button><div class="title">Booking Details</div></div><div id="bookingDetailBox"></div></section>
+
+ <section id="workers" class="page"><div class="title">Workers <button class="viewBtn" style="float:right" onclick="document.getElementById('workerForm').classList.toggle('hidden')">＋ Add New</button></div><input id="workerSearch" class="input search" placeholder="⌕ Search worker..." oninput="renderWorkers()"><div id="workerList"></div><div id="workerForm" class="card hidden"><div class="field"><label>Worker Name</label><input id="workerName" class="input"></div><div class="field"><label>Worker Mobile</label><input id="workerMobile" class="input" inputmode="tel"></div><button class="primaryBtn" onclick="addWorker()">＋ Add Worker</button></div></section>
+
+ <section id="customers" class="page"><div class="title">Customers</div><input id="customerSearch" class="input search" placeholder="⌕ Search customer..." oninput="renderCustomers()"><div id="customerList"></div></section>
+
+ <section id="settings" class="page"><div class="title">Settings</div><div class="card"><div class="field"><label>Admin Email</label><input id="setEmail" class="input" value="mostafakanua1@gmail.com"></div><div class="field"><label>Website Name</label><input id="setSite" class="input" value="কাজের বন্ধু"></div><div class="field"><label>Contact Mobile</label><input id="setMobile" class="input" value="9851321103" inputmode="tel"></div><div class="field"><label>WhatsApp Number</label><input id="setWhatsApp" class="input" value="9800321103" inputmode="tel"></div><div class="sectionTitle">Change Password</div><div class="field"><label>New Password</label><input id="setPassword" class="input" type="password" placeholder="নতুন Password"></div><button class="primaryBtn" onclick="saveSettings()">Save Settings</button></div><button class="primaryBtn" style="background:#ef3349;margin-top:8px" onclick="logout()">Logout</button></section>
+
+<section id="reports" class="page"><div class="title">Reports</div><div class="filters"><button class="active">Today</button><button>This Week</button><button>This Month</button></div><div class="stats"><div class="stat sblue"><b id="repRevenue">₹0</b><small>Revenue</small></div><div class="stat spink"><b id="repBookings">0</b><small>Total Bookings</small></div><div class="stat sgreen"><b id="repCompleted">0</b><small>Completed</small></div><div class="stat sorange"><b id="repCancelled">0</b><small>Cancelled</small></div></div><div class="sectionTitle">Booking Status</div><div class="card" style="text-align:center;font-size:55px">◕<div style="font-size:11px;color:#667085">Pending · Accepted · Ongoing · Completed</div></div></section>
+</div>
+
+<div id="bottom" class="bottom hidden"><div class="bottomInner"><button class="active" data-page="dashboard" onclick="show('dashboard')"><span>⌂</span>Home</button><button data-page="services" onclick="show('services')"><span>⚒</span>Services</button><button data-page="bookings" onclick="show('bookings')"><span>▣</span>Bookings</button><button onclick="openDrawer()"><span>☰</span>More</button></div></div>
+<div id="overlay" class="overlay" onclick="closeDrawer()"></div><aside id="drawer" class="drawer"><div class="drawerHead"><div class="drawerAvatar">👨‍💼</div><div><b>Kajer Bondhu</b><small style="display:block;color:#748198">Admin Panel</small></div></div><button onclick="go('dashboard')">⌂ Dashboard</button><button onclick="go('services')">⚒ Manage Services</button><button onclick="go('banners')">▧ Manage Banners</button><button onclick="go('bookings')">▣ Bookings</button><button onclick="go('workers')">♟ Workers</button><button onclick="go('customers')">♟ Customers</button><button onclick="go('reports')">▥ Reports</button><button onclick="go('settings')">⚙ Settings</button><button class="logout" onclick="logout()">⇥ Logout</button></aside>
+
+<script>
+const ADMIN_EMAIL='mostafakanua1@gmail.com',ADMIN_PASSWORD='Mostafa@786',ADMIN_KEY='KBADMIN2026';let services=[],bookings=[],banners=[],workers=JSON.parse(localStorage.getItem('KB_WORKERS')||'[]'),selectedBooking=null,currentBookingFilter='All',editingServiceId='';
+function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function val(o,...ks){for(const k of ks)if(o&&o[k]!=null)return o[k];return ''}function normStatus(x){let s=String(x||'Pending');if(s==='Accepted')s='Accept';if(s==='Labour Assigned')s='Assigned';if(s==='Against')s='Cancelled';return s}
+function togglePassword(){const e=document.getElementById('password');e.type=e.type==='password'?'text':'password'}
+function login(){const em=document.getElementById('adminEmail').value.trim().toLowerCase();const pw=document.getElementById('password').value;if(em!==ADMIN_EMAIL||pw!==ADMIN_PASSWORD){alert('Admin Email অথবা Password ভুল হয়েছে');return}document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('bottom').classList.remove('hidden');loadAll()}
+function logout(){location.reload()}
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));const e=document.getElementById(id);if(e)e.classList.add('active');document.querySelectorAll('.bottom button[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===id));window.scrollTo(0,0);if(id==='services')loadServices();if(id==='bookings')loadBookings();if(id==='banners'){loadBanners();setTimeout(designerPreview,50);}if(id==='customers')renderCustomers();if(id==='workers')renderWorkers();if(id==='reports')renderReports()}
+function openDrawer(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}function go(id){closeDrawer();show(id)}
+function run(method,args,done){done=done||function(){};if(typeof google==='undefined'||!google.script||!google.script.run){done(null,'Apps Script HTML হিসেবে খুলতে হবে');return}args=args||{};try{const r=google.script.run.withSuccessHandler(x=>done(x,null)).withFailureHandler(e=>done(null,e&&e.message||String(e)));if(method==='getAdminBookings')r.getAdminBookings(ADMIN_KEY);else if(method==='getAdminServices')r.getAdminServices(ADMIN_KEY);else if(method==='getAdminBanners')r.getAdminBanners(ADMIN_KEY);else if(method==='updateAdminBooking'){args.adminKey=ADMIN_KEY;args.key=ADMIN_KEY;r.updateAdminBooking(args)}else if(method==='serviceSave'){args.adminKey=ADMIN_KEY;r.saveAdminService(args)}else if(method==='serviceDelete')r.deleteAdminService(ADMIN_KEY,args.serviceId);else if(method==='bannerSave'){args.adminKey=ADMIN_KEY;r.bannerSave(args)}else if(method==='bannerDelete')r.bannerDelete(ADMIN_KEY,args.bannerId);else done(null,'Unknown method: '+method)}catch(e){done(null,e.message||String(e))}}
+function loadAll(){loadServices();loadBookings();loadBanners()}
+function loadServices(){run('getAdminServices',null,(d,e)=>{if(e){console.log(e);return}services=Array.isArray(d)?d:(d?.services||[]);renderServices();updateDashboard()})}function loadBookings(cb){run('getAdminBookings',null,(d,e)=>{if(e){if(cb)cb(e);else alert(e);return}bookings=Array.isArray(d)?d:(d?.bookings||[]);renderBookings();renderRecent();renderCustomers();updateDashboard();if(cb)cb(null)})}function loadBanners(){run('getAdminBanners',null,(d,e)=>{if(e)return;banners=Array.isArray(d)?d:(d?.banners||[]);renderBanners()})}
+function updateDashboard(){const c=s=>bookings.filter(b=>normStatus(val(b,'status','L')).toLowerCase()===s).length;const cm=new Map();bookings.forEach(b=>{const p=val(b,'phone','mobile');if(p)cm.set(String(p),1)});document.getElementById('serviceCount').textContent=services.length;document.getElementById('bookingCount').textContent=bookings.length;document.getElementById('ongoingCount').textContent=c('ongoing');document.getElementById('completeCount').textContent=c('completed');document.getElementById('acceptedCount').textContent=c('accept')+c('accepted');document.getElementById('assignedCount').textContent=c('assigned');document.getElementById('cancelledCount').textContent=c('cancelled');document.getElementById('customerCount').textContent=cm.size;document.getElementById('workerCount').textContent=workers.length;document.getElementById('reportCount').textContent=bookings.length}
+function renderRecent(){const a=bookings.slice(0,3);document.getElementById('recentBookings').innerHTML=a.length?a.map(b=>`<div class="recentRow"><div class="avatar">👤</div><div class="grow"><b>${esc(val(b,'customerName'))}</b><small>${esc(val(b,'serviceName'))} · ${esc(val(b,'workDate','date'))} ${esc(val(b,'workTime','time'))}</small></div><span class="pill ${normStatus(val(b,'status')).toLowerCase()}">${esc(normStatus(val(b,'status')))}</span><button class="viewBtn" onclick="viewBooking(${bookings.indexOf(b)})">View</button></div>`).join(''):'<div class="empty">No bookings</div>'}
+function bookingFilter(s,btn){currentBookingFilter=s;document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderBookings()}
+function renderBookings(){const q=(document.getElementById('bookingSearch')?.value||'').toLowerCase();let a=bookings.filter(b=>JSON.stringify(b).toLowerCase().includes(q));if(currentBookingFilter!=='All')a=a.filter(b=>normStatus(val(b,'status'))===currentBookingFilter);document.getElementById('bookingList').innerHTML=a.length?a.map(b=>{const i=bookings.indexOf(b),s=normStatus(val(b,'status'));return `<div class="card"><div class="bookingRow"><div class="avatar">👤</div><div class="grow"><b>${esc(val(b,'customerName'))}</b><small>${esc(val(b,'serviceName'))}<br>☎ ${esc(val(b,'phone','mobile'))}<br>▣ ${esc(val(b,'workDate','date'))} · ${esc(val(b,'workTime','time'))}</small></div><span class="pill ${s.toLowerCase()}">${esc(s)}</span></div><div class="rowActions"><button class="miniBtn blueBtn" onclick="viewBooking(${i})">View</button></div></div>`}).join(''):'<div class="empty">No Booking Found</div>'}
+function viewBooking(i){selectedBooking=bookings[i];const b=selectedBooking;if(!b)return;const s=normStatus(val(b,'status')).toLowerCase();const accept=s==='pending',assign=s==='accept'||s==='accepted',ongoing=s==='assigned',complete=s==='ongoing',cancel=!['completed','cancelled'].includes(s);document.getElementById('bookingDetailBox').innerHTML=`<div class="card"><div class="detailTop"><div class="avatar">👤</div><div class="grow"><b>${esc(val(b,'customerName'))}</b><small>${esc(val(b,'phone','mobile'))}</small></div><a class="call" href="tel:${esc(val(b,'phone','mobile'))}">☎</a><a class="call" style="background:#16a765" href="https://wa.me/${esc(val(b,'phone','mobile'))}" target="_blank">◉</a></div><div class="infoLine"><b>✉</b><span>${esc(val(b,'customerEmail'))||'Email দেওয়া হয়নি'}</span></div><div class="infoLine"><b>⚒</b><span>${esc(val(b,'serviceName'))}</span></div><div class="infoLine"><b>▣</b><span>${esc(val(b,'workDate','date'))}</span></div><div class="infoLine"><b>◷</b><span>${esc(val(b,'workTime','time'))}</span></div><div class="infoLine"><b>⌖</b><span>${esc(val(b,'address'))}</span></div><div class="infoLine"><b>▤</b><span>${esc(val(b,'workDetails'))}</span></div><div class="actionGrid">${accept?'<button class="greenBtn" onclick="updateStatus(\'Accept\')">✓ Accept</button>':''}${assign?'<button class="purpleBtn" onclick="openWorkerForm()">♟ Assign Worker</button>':''}${ongoing?'<button class="blueBtn" onclick="updateStatus(\'Ongoing\')">▶ Mark Ongoing</button>':''}${complete?'<button class="orangeBtn" onclick="updateStatus(\'Completed\')">✓ Mark Completed</button>':''}${cancel?'<button class="redBtn fullBtn" onclick="updateStatus(\'Cancelled\')">✕ Cancel Booking</button>':''}</div></div><div id="workerBox" class="workerBox hidden"><b>Assign Worker</b><div class="field"><label>Worker Name</label><input id="assignName" class="input" value="${esc(val(b,'assignedLabour'))}"></div><div class="field"><label>Worker Mobile</label><input id="assignMobile" class="input" inputmode="tel" value="${esc(val(b,'workerPhone'))}"></div><button class="primaryBtn" onclick="saveWorkerAssigned()">✓ Save & Assign</button></div><div class="timeline"><b>Booking Tracking</b><div class="step done"><div class="dot"></div><div class="stepText"><b>Booking Placed</b><small>Customer submitted booking</small></div></div><div class="step ${['accept','accepted','assigned','ongoing','completed'].includes(s)?'done':''}"><div class="dot"></div><div class="stepText"><b>Accepted</b></div></div><div class="step ${['assigned','ongoing','completed'].includes(s)?'done':''}"><div class="dot"></div><div class="stepText"><b>Worker Assigned</b></div></div><div class="step ${['ongoing','completed'].includes(s)?'done':''}"><div class="dot"></div><div class="stepText"><b>Ongoing</b></div></div><div class="step ${s==='completed'?'done current':''}"><div class="dot"></div><div class="stepText"><b>Completed</b></div></div></div>`;show('bookingDetail')}
+function openWorkerForm(){document.getElementById('workerBox').classList.remove('hidden')}function saveWorkerAssigned(){const n=document.getElementById('assignName').value.trim(),m=document.getElementById('assignMobile').value.trim();if(!n){alert('Worker Name দিন');return}updateStatus('Assigned',n,m)}
+function updateStatus(st,name,mobile){if(!selectedBooking)return;const p={adminKey:ADMIN_KEY,key:ADMIN_KEY,bookingId:val(selectedBooking,'bookingId'),status:st,assignedLabour:name!==undefined?name:val(selectedBooking,'assignedLabour'),workerPhone:mobile!==undefined?mobile:val(selectedBooking,'workerPhone'),adminNote:''};run('updateAdminBooking',p,(d,e)=>{if(e){alert('Update হয়নি: '+e);return}if(!d||d.success===false){alert(d?.message||'Update হয়নি');return}loadBookings(()=>{const i=bookings.findIndex(x=>String(val(x,'bookingId'))===String(p.bookingId));if(i>=0)viewBooking(i)})})}
+function renderServices(){const q=(document.getElementById('serviceSearch')?.value||'').toLowerCase();const a=services.filter(s=>JSON.stringify(s).toLowerCase().includes(q));document.getElementById('serviceList').innerHTML=a.length?a.map(s=>{const i=services.indexOf(s);return `<div class="card"><div class="serviceRow"><img class="serviceImg" src="${esc(val(s,'imageUrl','image'))}" onerror="this.style.display='none'"><div class="grow"><b>${esc(val(s,'serviceName','name'))}</b><small>${esc(val(s,'description'))}</small><strong>₹${esc(val(s,'price'))}</strong></div><span class="pill ${String(val(s,'active')).toLowerCase()==='false'?'cancelled':'completed'}">${String(val(s,'active')).toLowerCase()==='false'?'Inactive':'Active'}</span></div><div class="rowActions"><button class="miniBtn blueBtn" onclick="editService(${i})">✎ Edit</button><button class="miniBtn redBtn" onclick="deleteService(${i})">⌫ Delete</button></div></div>`}).join(''):'<div class="empty">No Service Found</div>'}
+function newService(){editingServiceId='';document.getElementById('serviceId').value='';document.getElementById('serviceNameBn').value='';document.getElementById('serviceName').value='';document.getElementById('servicePrice').value='';document.getElementById('serviceCategory').value='Home Service';document.getElementById('serviceImage').value='';document.getElementById('serviceDescription').value='';document.getElementById('serviceActive').value='true';show('serviceForm')}
+function editService(i){const s=services[i];editingServiceId=val(s,'serviceId');document.getElementById('serviceId').value=editingServiceId;document.getElementById('serviceName').value=val(s,'serviceName','name');document.getElementById('servicePrice').value=val(s,'price');document.getElementById('serviceCategory').value=val(s,'category')||'Home Service';document.getElementById('serviceImage').value=val(s,'imageUrl','image');document.getElementById('serviceDescription').value=val(s,'description');document.getElementById('serviceActive').value=String(val(s,'active')).toLowerCase()==='false'?'false':'true';show('serviceForm')}
+function saveService(){const p={adminKey:ADMIN_KEY,serviceId:editingServiceId||'S'+String(services.length+1).padStart(3,'0'),serviceName:document.getElementById('serviceName').value.trim(),description:document.getElementById('serviceDescription').value,price:document.getElementById('servicePrice').value,imageUrl:document.getElementById('serviceImage').value,active:document.getElementById('serviceActive').value==='true'};if(!p.serviceName){alert('Service Name দিন');return}run('serviceSave',p,(d,e)=>{if(e){alert(e);return}if(d?.success===false){alert(d.message||'Save হয়নি');return}alert('Service saved ✓');loadServices();show('services')})}
+function deleteService(i){if(!confirm('Service Delete করবেন?'))return;run('serviceDelete',{serviceId:val(services[i],'serviceId')},(d,e)=>{if(e)alert(e);else loadServices()})}
+let homeSlides=[],sliderInterval=3,sliderUploading=0;
+function loadBanners(){
+  google.script.run.withSuccessHandler(function(r){
+    if(!r||r.success===false){document.getElementById('sliderMsg').textContent=(r&&r.message)||'Slider load হয়নি';return;}
+    homeSlides=Array.isArray(r.slides)?r.slides.slice(0,4):[];
+    sliderInterval=Math.max(1,Math.min(3600,parseInt(r.interval,10)||3));
+    document.getElementById('sliderInterval').value=String(sliderInterval);
+    renderHomeSlides();
+  }).withFailureHandler(function(e){document.getElementById('sliderMsg').textContent='Load error: '+(e&&e.message||e);}).getHomeSlidesForAdmin();
+}
+function renderHomeSlides(){
+  const root=document.getElementById('sliderCards');
+  root.innerHTML=homeSlides.map((s,i)=>`<div class="card" style="margin:10px 0;padding:12px">
+   <b>Banner ${i+1}</b>
+   ${s.url?`<img src="${esc(s.url)}" alt="Banner ${i+1}" style="display:block;width:100%;height:145px;object-fit:cover;border-radius:8px;margin:8px 0" onerror="this.style.display='none'">`:''}
+   <label class="fileBtn" style="display:inline-block;margin:8px 0">${s.url?'Change Image':'Choose Image'}<input type="file" accept="image/*" hidden onchange="uploadHomeSlide(this,${i})"></label>
+   <div class="field"><label>Status</label><select class="input" onchange="homeSlides[${i}].active=this.value==='true'"><option value="true" ${s.active!==false?'selected':''}>Active</option><option value="false" ${s.active===false?'selected':''}>Inactive</option></select></div>
+   <div class="rowActions"><button class="miniBtn blueBtn" onclick="moveHomeSlide(${i},-1)" ${i===0?'disabled':''}>↑ Up</button><button class="miniBtn blueBtn" onclick="moveHomeSlide(${i},1)" ${i===homeSlides.length-1?'disabled':''}>↓ Down</button><button class="miniBtn redBtn" onclick="deleteHomeSlide(${i})">Delete</button></div>
+  </div>`).join('');
+  document.getElementById('addSlideBtn').style.display=homeSlides.length>=4?'none':'block';
+}
+function addSlideSlot(){if(homeSlides.length>=4){alert('সর্বোচ্চ ৪টি ছবি রাখা যাবে');return;}homeSlides.push({id:'KB-SLIDE-'+Date.now(),url:'',active:true});renderHomeSlides();}
+function moveHomeSlide(i,dir){const j=i+dir;if(j<0||j>=homeSlides.length)return;const t=homeSlides[i];homeSlides[i]=homeSlides[j];homeSlides[j]=t;renderHomeSlides();}
+function deleteHomeSlide(i){if(!confirm('এই Banner মুছে দেবেন?'))return;homeSlides.splice(i,1);renderHomeSlides();}
+function uploadHomeSlide(input,i){
+ const file=input.files&&input.files[0];if(!file)return;
+ if(!/^image\//i.test(file.type)){alert('শুধু image ফাইল নির্বাচন করুন');return;}
+ if(file.size>8*1024*1024){alert('ছবির সাইজ ৮ MB-এর কম রাখুন');return;}
+ const msg=document.getElementById('sliderMsg');msg.textContent='ছবি আপলোড হচ্ছে...';sliderUploading++;
+ const reader=new FileReader();reader.onerror=()=>{sliderUploading--;msg.textContent='ফাইল পড়া যায়নি';};
+ reader.onload=()=>{google.script.run.withSuccessHandler(r=>{
+   sliderUploading--;if(!r||!r.success||!r.url){msg.textContent=(r&&r.message)||'Upload ব্যর্থ';return;}
+   homeSlides[i].url=r.url;homeSlides[i].active=homeSlides[i].active!==false;msg.textContent='ছবি আপলোড হয়েছে। এখন Save Homepage Slider চাপুন।';renderHomeSlides();
+ }).withFailureHandler(e=>{sliderUploading--;msg.textContent='Upload error: '+(e&&e.message||e);}).bannerUploadImage({key:ADMIN_KEY,data:String(reader.result||'')});};
+ reader.readAsDataURL(file);
+}
+function saveHomeSlider(){
+ const msg=document.getElementById('sliderMsg');if(sliderUploading){msg.textContent='ছবি আপলোড শেষ হওয়া পর্যন্ত অপেক্ষা করুন';return;}
+ if(homeSlides.some(s=>!s.url)){msg.textContent='প্রতিটি যোগ করা Banner-এর ছবি নির্বাচন করুন অথবা খালি Banner Delete করুন';return;}
+ const intervalInput=document.getElementById('sliderInterval');
+ const entered=parseInt(intervalInput.value,10);
+ if(!Number.isFinite(entered)||entered<1||entered>3600){msg.textContent='Timer ১ থেকে ৩৬০০ সেকেন্ডের মধ্যে লিখুন';intervalInput.focus();return;}
+ const p={key:ADMIN_KEY,interval:entered,slides:homeSlides};
+ msg.textContent='Saving...';google.script.run.withSuccessHandler(r=>{if(!r||!r.success){msg.textContent=(r&&r.message)||'Save হয়নি';return;}homeSlides=r.slides||homeSlides;msg.textContent='✓ Homepage Slider সফলভাবে Save হয়েছে';renderHomeSlides();}).withFailureHandler(e=>{msg.textContent='Save error: '+(e&&e.message||e);}).saveHomeSlides(p);
+}
+function renderWorkers(){const q=(document.getElementById('workerSearch')?.value||'').toLowerCase();const a=workers.filter(w=>JSON.stringify(w).toLowerCase().includes(q));document.getElementById('workerList').innerHTML=a.length?a.map((w,i)=>`<div class="card"><div class="workerRow"><div class="avatar">👨‍🔧</div><div class="grow"><b>${esc(w.name)}</b><small>${esc(w.mobile)}</small></div><span class="pill completed">Active</span><a class="call" href="tel:${esc(w.mobile)}">☎</a></div></div>`).join(''):'<div class="empty">Worker list empty</div>'}function addWorker(){const n=document.getElementById('workerName').value.trim(),m=document.getElementById('workerMobile').value.trim();if(!n||!m){alert('Name ও Mobile দিন');return}workers.push({name:n,mobile:m});localStorage.setItem('KB_WORKERS',JSON.stringify(workers));renderWorkers();document.getElementById('workerForm').classList.add('hidden')}
+function renderCustomers(){const q=(document.getElementById('customerSearch')?.value||'').toLowerCase();const map=new Map();bookings.forEach(b=>{const p=val(b,'phone','mobile');if(p&&!map.has(p))map.set(p,b)});const a=[...map.values()].filter(b=>JSON.stringify(b).toLowerCase().includes(q));document.getElementById('customerList').innerHTML=a.length?a.map(b=>`<div class="card"><div class="customerRow"><div class="avatar">👤</div><div class="grow"><b>${esc(val(b,'customerName'))}</b><small>${esc(val(b,'phone','mobile'))}<br>${esc(val(b,'customerEmail'))}</small></div><span class="pill ongoing">${bookings.filter(x=>val(x,'phone','mobile')===val(b,'phone','mobile')).length} Bookings</span><a class="call" href="tel:${esc(val(b,'phone','mobile'))}">☎</a></div></div>`).join(''):'<div class="empty">No customers</div>'}
+function saveSettings(){localStorage.setItem('KB_SETTINGS',JSON.stringify({email:document.getElementById('setEmail').value,site:document.getElementById('setSite').value,mobile:document.getElementById('setMobile').value,whatsapp:document.getElementById('setWhatsApp').value}));const np=document.getElementById('setPassword').value.trim();if(np){localStorage.setItem('KB_ADMIN_PASSWORD',np);document.getElementById('setPassword').value='';}alert('Settings saved ✓')}
+function renderReports(){document.getElementById('repBookings').textContent=bookings.length;document.getElementById('repCompleted').textContent=bookings.filter(b=>normStatus(val(b,'status'))==='Completed').length;document.getElementById('repCancelled').textContent=bookings.filter(b=>normStatus(val(b,'status'))==='Cancelled').length;document.getElementById('repRevenue').textContent='₹0'}
+</script>
+</body>
+</html>
